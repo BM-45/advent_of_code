@@ -62,7 +62,7 @@ print("-------------------------------------------------------------------------
 ##########################
 
 count = 0
-def inLoop(matrix):
+def inLoop():
     
     startX, startY = iniX, iniY
     newX, newY = 0, 0
@@ -82,7 +82,7 @@ def inLoop(matrix):
                     visitedNodes.add((newX, newY))
                     
                 else:
-                    if countconsecutiveObstacle > 10000:
+                    if countconsecutiveObstacle > 1000:
                         return True
                     countconsecutiveObstacle += 1
                 startX, startY = newX, newY
@@ -92,14 +92,19 @@ def inLoop(matrix):
 
 
 
-for i in range(len(matrix)):
-    for j in range(len(matrix[0])):
-        if matrix[i][j] != '#':
-            temp = matrix[i][j]
-            matrix[i][j] = '#'
-            if inLoop(matrix):
-                count += 1
-            matrix[i][j] = temp
+for p in distinct:
+    i, j = p[0], p[1]
+    if matrix[i][j] != '#':
+        # SToring the temp variable.
+        temp = matrix[i][j]
+        matrix[i][j] = '#'
+
+        # Checking for the loop.
+        if inLoop():
+            count += 1
+
+        # Reassigning it.
+        matrix[i][j] = temp
 
 print("Total possible obstacles",count)
 
